@@ -8,6 +8,7 @@ If your system uses BSD make, please use gmake (GNU make) command.
 To compile and install this /sbin/init into your already generated kernel ELF please do:
 
 $ cd edgebsd-src # Go to the root dir of NetBSD or EdgeBSD src
+
 $ make -C init_src clean init install
 
 By default it will try to insert the ramdisk into the GENERIC_MFS kernel, you can select another kernel by providing the "kernel" variable like this:
