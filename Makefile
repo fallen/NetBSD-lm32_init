@@ -5,10 +5,12 @@ endif
 TOPDIR = $(PWD)
 TOOLCHAIN_DIR ?= $(TOPDIR)/obj/tooldir.Darwin-10.8.0-i386/
 CROSSTC ?= $(TOOLCHAIN_DIR)/bin/lm32--netbsd-
+HOSTTOOL = $(TOOLCHAIN_DIR)/bin
 CC = $(CROSSTC)gcc
 LD = $(CROSSTC)ld
 AS = $(CROSSTC)as
 MDSETIMAGE = $(CROSSTC)mdsetimage
+NBMKNOD = $(HOSTTOOL)/nbmknod
 DD = dd
 NBMAKEFS = $(TOOLCHAIN_DIR)/bin/nbmakefs
 RM ?= rm -f
@@ -32,6 +34,8 @@ install: init
 	$(RM) -r rootfs
 	mkdir -p rootfs/sbin
 	cp init rootfs/sbin/
+	mkdir -p rootfs/dev
+	sudo $(NBMKNOD) rootfs/dev/console c 0 0
 	$(NBMAKEFS) -s 1m milkymist_disk.ffs rootfs
 	$(MDSETIMAGE) $(TOPDIR)/sys/arch/milkymist/compile/obj/$(kernel)/$(kernel_name) milkymist_disk.ffs
 
