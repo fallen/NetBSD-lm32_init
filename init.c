@@ -1,6 +1,9 @@
 #define WRITE_SYSCALL_NUM	"4"
 #define OPEN_SYSCALL_NUM	"5"
 
+#define	O_RDONLY	0x00000000	/* open for reading only */
+#define	O_WRONLY	0x00000001	/* open for writing only */
+
 int write(int fd, char *str, int len)
 {
 	int error;
@@ -36,9 +39,9 @@ int main(void)
 {
 	int error, fd_stdin, fd_stdout, fd_stderr;
 
-	fd_stdin = open("/dev/console", 2);
-	fd_stdout = open("/dev/console", 2);
-	fd_stderr = open("/dev/console", 2);
+	fd_stdin = open("/dev/console", O_RDONLY);
+	fd_stdout = open("/dev/console", O_WRONLY);
+	fd_stderr = open("/dev/console", O_WRONLY);
 
 	error = write(fd_stdout, "hello, world!\n", 14);
 	return 0;
