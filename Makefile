@@ -43,6 +43,6 @@ install: init
 
 clean:
 	$(RM) -r rootfs
-	$(RM) init.o init milkymist_disk.ffs
+	$(RM) ident.o init.o init milkymist_disk.ffs
 
 .PHONY: install clean all
