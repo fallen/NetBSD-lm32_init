@@ -23,14 +23,16 @@ else
 kernel_name = netbsd
 endif
 
-all init: init.o ident.o
+all: init
+
+init: init.o ident.o
 	$(LD) $(LDFLAGS) $^ -o $@
 
 init.o: init.c
 	$(CC) -c $^
 
 install: init
-	$(DD) if=/dev/zero of=milkymist_disk.ffs bs=1m count=1
+	$(DD) if=/dev/zero of=milkymist_disk.ffs bs=1M count=1
 	$(RM) -r rootfs
 	mkdir -p rootfs/sbin
 	cp init rootfs/sbin/
